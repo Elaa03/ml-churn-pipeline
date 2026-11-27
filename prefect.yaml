@@ -1,0 +1,42 @@
+---
+# Welcome to your prefect.yaml file! You can use this file for
+# storing and managing configuration for deploying your flows.
+# We recommend committing this file to source control along
+# with your flow code.
+
+# Generic metadata about this project
+name: ml_project
+prefect-version: 3.8.8
+
+# build section allows you to manage and build docker images
+build: null
+
+# push section allows you to manage if and how this project
+# is uploaded to remote locations
+push: null
+
+# pull section allows you to provide instructions for cloning
+# this project in remote locations
+pull:
+- prefect.deployments.steps.set_working_directory:
+    directory: /home/elaa/ml_project
+
+# the deployments section allows you to provide configuration
+# for deploying flows
+deployments:
+- name: churn-deployment
+  version: null
+  tags: []
+  concurrency_limit: null
+  description: null
+  entrypoint: pipeline_prefect.py:customer_churn_flow
+  parameters: {}
+  work_pool:
+    name: churn-pool
+    work_queue_name: null
+    job_variables: {}
+  schedules:
+  - interval: 86400.0
+    anchor_date: '2026-11-27T09:49:07.624291+00:00'
+    timezone: UTC
+    active: true
